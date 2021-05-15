@@ -47,9 +47,5 @@ int main(void) {
 				}
 				break;
 		}
-
 	}while(operacion != 5);
-
-
-	return EXIT_SUCCESS;
 }

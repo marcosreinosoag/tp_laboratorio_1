@@ -277,7 +277,23 @@ return retorno;
 */
 int printEmployees(Employee* list, int length)
 {
-
+	int i;
+	int contador=0;
+	int acumulador=0;
+	float promedios;
+	if(list!=NULL && length>0)
+	{
+		for(i=0;i<length;i++)
+		{
+			if(list[i].isEmpty == FALSE)
+			{
+				acumulador=acumulador+list[i].salary;
+				contador++;
+			}
+		}
+	}
+	promedios=(float)acumulador/contador;
+	printf("El total de los salarios es: %d y el promedio de salarios es: %f",acumulador,promedios);
 return 0;
 }
 
@@ -426,7 +442,8 @@ int employee_informes(Employee * pArrays, int limiteEmployee)
 					{
 					retorno= 0;
 					}
-					else{
+					else
+					{
 						printf("No hay Empleados cargados");
 					}
 			}
