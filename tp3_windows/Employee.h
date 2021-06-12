@@ -8,20 +8,22 @@ typedef struct
     int sueldo;
 }Employee;
 
+
 Employee* employee_new();
-Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr);
-void employee_delete();
-
-int employee_setId(Employee* this,int id);
-int employee_getId(Employee* this,int* id);
-
+Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr);
+int employee_delete(Employee* this);
+int employee_setId(Employee* this,char* id);
+int employee_getId(Employee* this, int* flagError);
+int isValidId(char* id);
+int employee_setHorasTrabajadas(Employee* this,char* horasTrabajadas);
+int employee_getHorasTrabajadas(Employee* this, int* flagError);
+int isValidHorasTrabajadas(char* horasTrabajadas);
+int employee_setSueldo(Employee* this,char* sueldo);
+int employee_getSueldo(Employee* this, int* flagError);
+int isValidSueldo(char* sueldo);
 int employee_setNombre(Employee* this,char* nombre);
-int employee_getNombre(Employee* this,char* nombre);
+char* employee_getNombre(Employee* this, int* flagError);
+int isValidNombre(char* tipo);
 
-int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas);
-int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas);
-
-int employee_setSueldo(Employee* this,int sueldo);
-int employee_getSueldo(Employee* this,int* sueldo);
 
 #endif // employee_H_INCLUDED
