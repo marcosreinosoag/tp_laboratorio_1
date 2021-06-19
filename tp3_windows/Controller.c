@@ -5,36 +5,18 @@
 #include "Employee.h"
 #include "utn.h"
 
-
+/** \brief Genera in Id unico para asociarlo a un empleado.
+ *
+ * \param int idMaximo
+ * \return int
+ *
+ */
 static int employee_generarId(int idMaximo)
 {
 	static int contador=0;
 	contador=idMaximo;
 	contador++;
 	return contador;
-}
-
-int controller_clearEmployee(LinkedList* pArrayListEmployee)
-{
-	Employee* pEmp;
-	int lenLista;
-	int i;
-	int retorno=-1;
-	if(pArrayListEmployee!=NULL)
-	{
-		lenLista = ll_len(pArrayListEmployee);
-		for(i=0; i<lenLista;i++)
-		{
-			pEmp=(Employee*)ll_get(pArrayListEmployee,i);
-			if(pEmp != NULL)
-			{
-				printf("[%d]%p",i,pEmp);
-				employee_delete(pEmp);
-				retorno=0;
-			}
-		}
-	}
-	return retorno;
 }
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
@@ -182,7 +164,12 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 	}
 	return 1;
 }
-
+/** \brief Busca por id un empleado y devuelve la posicion del empleado en linkedlist.
+ *
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
 static Employee* buscarPorId(LinkedList* pArrayListEmployee,int idABuscar,int* posicionLinkedlist)
 {
 	int i;
@@ -291,6 +278,13 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
+/** \brief Compara las horas trabajadas de dos empleados
+ *
+ * \param void* el1
+ * \param void* el2
+ * \return int
+ *
+ */
 int funcioCriterioHorasTrabajadas(void* el1,void* el2)
 {
 	int retorno=0;
@@ -312,7 +306,13 @@ int funcioCriterioHorasTrabajadas(void* el1,void* el2)
 	}
 	return retorno;
 }
-
+/** \brief Compara los Sueldos de dos empleados
+ *
+ * \param void* el1
+ * \param void* el2
+ * \return int
+ *
+ */
 int funcioCriterioSueldo(void* el1,void* el2)
 {
 	int retorno=0;
@@ -334,7 +334,13 @@ int funcioCriterioSueldo(void* el1,void* el2)
 	}
 	return retorno;
 }
-
+/** \brief Compara los Id de dos empleados
+ *
+ * \param void* el1
+ * \param void* el2
+ * \return int
+ *
+ */
 int funcioCriterioId(void* el1,void* el2)
 {
 	int retorno=0;
@@ -356,7 +362,13 @@ int funcioCriterioId(void* el1,void* el2)
 	}
 	return retorno;
 }
-
+/** \brief Compara los nombres de dos empleados
+ *
+ * \param void* el1
+ * \param void* el2
+ * \return int
+ *
+ */
 int funcioCriterioNombre(void* el1,void* el2)
 {
 	Employee* pEmp1;
@@ -485,4 +497,33 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 	}
     return 1;
 }
+
+/** \brief Limpia todos los empleados que estan guardados en memoria.
+ *
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+int controller_clearEmployee(LinkedList* pArrayListEmployee)
+{
+	Employee* pEmp;
+	int lenLista;
+	int i;
+	int retorno=-1;
+	if(pArrayListEmployee!=NULL)
+	{
+		lenLista = ll_len(pArrayListEmployee);
+		for(i=0; i<lenLista;i++)
+		{
+			pEmp=(Employee*)ll_get(pArrayListEmployee,i);
+			if(pEmp != NULL)
+			{
+				employee_delete(pEmp);
+				retorno=0;
+			}
+		}
+	}
+	return retorno;
+}
+
 

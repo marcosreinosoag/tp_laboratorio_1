@@ -5,12 +5,25 @@
 #include "utn.h"
 #include <stdlib.h>
 
-
+/** \brief Crea un espacio en memoria para un empleado.
+ *
+ * \return Employee*
+ *
+ */
 Employee* employee_new()
 {
 	return(Employee*) malloc(sizeof(Employee));
 }
 
+/** \brief Carga los datos del empleado.
+ *
+ * \param char* idStr
+ * \param char* nombreStr
+ * \param char* horasTrabajadasStr
+ * \param char* sueldoStr
+ * \return Employee*
+ *
+ */
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)
 {
 	Employee* auxEmpleado = employee_new();
@@ -27,7 +40,12 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	}
 	return auxEmpleado;
 }
-
+/** \brief Libera el espacio en memoria del empleado.
+ *
+ * \param Employee* this
+ * \return int retorno
+ *
+ */
 int employee_delete(Employee* this)
 {
 	int retorno = -1;
@@ -39,7 +57,13 @@ int employee_delete(Employee* this)
 	return retorno;
 }
 ////////////////---------------------------------------------ID-------------------------
-
+/** \brief Carga el id del empleado.
+ *
+ * \param Employee* this
+ * \param char* id
+ * \return int retorno
+ *
+ */
 int employee_setId(Employee* this,char* id)///2:53
 {
 	int retorno = -1;
@@ -52,6 +76,14 @@ int employee_setId(Employee* this,char* id)///2:53
 	}
 	return retorno;
 }
+
+/** \brief Obtiene el id del empleado.
+ *
+ * \param Employee* this
+ * \param int* flagError
+ * \return int auxid
+ *
+ */
 int employee_getId(Employee* this, int* flagError)
 {
 	*flagError = -1;
@@ -63,7 +95,12 @@ int employee_getId(Employee* this, int* flagError)
 	}
 	return auxid;
 }
-
+/** \brief Valida que la cadena de caracteres sea numerica.
+ *
+ * \param char* id
+ * \return int retorno
+ *
+ */
 int isValidId(char* id)
 {
 	int retorno=-1;
@@ -74,6 +111,14 @@ int isValidId(char* id)
 	return retorno;
 }
 ////////////////---------------------------------HORAS TRABAJADAS------------------------
+/** \brief Carga las Horas Trabajadas del empleado.
+ *
+ * \param Employee* this
+ * \param char* id
+ * \return int retorno
+ *
+ */
+
 int employee_setHorasTrabajadas(Employee* this,char* horasTrabajadas)
 {
 	int retorno = -1;
@@ -87,6 +132,13 @@ int employee_setHorasTrabajadas(Employee* this,char* horasTrabajadas)
 	return retorno;
 }
 
+/** \brief Obtiene las Horas Trabajadas del empleado.
+ *
+ * \param Employee* this
+ * \param int* flagError
+ * \return int auxHorasTrabajadas
+ *
+ */
 int employee_getHorasTrabajadas(Employee* this, int* flagError)
 {
 	*flagError = -1;
@@ -99,12 +151,25 @@ int employee_getHorasTrabajadas(Employee* this, int* flagError)
 	return auxHorasTrabajadas;
 }
 
+/** \brief Valida que la cadena de caracteres sea numerica.
+ *
+ * \param char* horasTrabajadas
+ * \return int retorno
+ *
+ */
 int isValidHorasTrabajadas(char* horasTrabajadas)
 {
 	return 1;
 }
 
 //------------------------------------------------------------Sueldo------------------------------
+/** \brief Carga el sueldo del empleado.
+ *
+ * \param Employee* this
+ * \param char* sueldo
+ * \return int retorno
+ *
+ */
 int employee_setSueldo(Employee* this,char* sueldo)
 {
 	int retorno = -1;
@@ -117,7 +182,13 @@ int employee_setSueldo(Employee* this,char* sueldo)
 	}
 	return retorno;
 }
-
+/** \brief Obtiene el sueldo del empleado.
+ *
+ * \param Employee* this
+ * \param int* flagError
+ * \return int auxSueldo
+ *
+ */
 int employee_getSueldo(Employee* this, int* flagError)
 {
 	*flagError = -1;
@@ -129,11 +200,24 @@ int employee_getSueldo(Employee* this, int* flagError)
 	}
 	return auxSueldo;
 }
+/** \brief Valida que la cadena de caracteres sea numerica.
+ *
+ * \param char* horasTrabajadas
+ * \return int retorno
+ *
+ */
 int isValidSueldo(char* sueldo)
 {
 	return 1;
 }
 //----------------------------------------------------------------Nombre----------------------------------------
+/** \brief Carga el nombre del empleado.
+ *
+ * \param Employee* this
+ * \param char* nombre
+ * \return int retorno
+ *
+ */
 int employee_setNombre(Employee* this,char* nombre)
 {
 	int retorno = -1;
@@ -145,6 +229,13 @@ int employee_setNombre(Employee* this,char* nombre)
 	return retorno;
 }
 
+/** \brief Obtiene el nombre del empleado.
+ *
+ * \param Employee* this
+ * \param int* flagError
+ * \return int auxnombre
+ *
+ */
 char* employee_getNombre(Employee* this, int* flagError)
 {
 	*flagError = -1;
@@ -156,7 +247,12 @@ char* employee_getNombre(Employee* this, int* flagError)
 	}
 	return auxnombre;
 }
-
+/** \brief Valida que la cadena de caracteres sea numerica.
+ *
+ * \param char* horasTrabajadas
+ * \return int retorno
+ *
+ */
 int isValidNombre(char* tipo)
 {
 	return 1;
