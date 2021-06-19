@@ -14,6 +14,29 @@ static int employee_generarId(int idMaximo)
 	return contador;
 }
 
+int controller_clearEmployee(LinkedList* pArrayListEmployee)
+{
+	Employee* pEmp;
+	int lenLista;
+	int i;
+	int retorno=-1;
+	if(pArrayListEmployee!=NULL)
+	{
+		lenLista = ll_len(pArrayListEmployee);
+		for(i=0; i<lenLista;i++)
+		{
+			pEmp=(Employee*)ll_get(pArrayListEmployee,i);
+			if(pEmp != NULL)
+			{
+				printf("[%d]%p",i,pEmp);
+				employee_delete(pEmp);
+				retorno=0;
+			}
+		}
+	}
+	return retorno;
+}
+
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
  * \param path char*
@@ -118,9 +141,9 @@ int controller_addEmployee(LinkedList* pArrayListEmployee,int idMaximo)
 	Employee* pE;
 	if(pArrayListEmployee!=NULL)
 	{
-		if(utn_getTexto("Ingrese Nombre:","Error!!!! Reingrese Nombre:",auxNombre,3,50)==0 &&
-		   utn_getTexto("Ingrese horas trabajadas:","Error!!!! Reingrese horas trabajadas:",auxhorasTrabajadas,3,50)==0 &&
-		   utn_getTexto("Ingrese Sueldo:","Error!!!! Reingrese Sueldo:",auxSueldo,3,50)==0)
+		if(utn_getNombre("Ingrese Nombre:","Error!!!! Reingrese Nombre:",auxNombre,3,255)==0 &&
+		   utn_getTextoSoloNumeros("Ingrese horas trabajadas:","Error!!!! Reingrese horas trabajadas:",auxhorasTrabajadas,3,255)==0 &&
+		   utn_getTextoSoloNumeros("Ingrese Sueldo:","Error!!!! Reingrese Sueldo:",auxSueldo,3,255)==0)
 		   {
 				idMax=employee_generarId(idMaximo);
 				sprintf(auxId,"%d",idMax);
@@ -270,7 +293,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 }
 int funcioCriterioHorasTrabajadas(void* el1,void* el2)
 {
-	int retorno=-1;
+	int retorno=0;
 	Employee* pEmp1;
 	Employee* pEmp2;
 	int flagError;
@@ -278,15 +301,13 @@ int funcioCriterioHorasTrabajadas(void* el1,void* el2)
 	int hora2;
 	pEmp1=(Employee*)el1;
 	pEmp2=(Employee*)el2;
-	hora1=employee_getSueldo(pEmp1,&flagError);
-	hora2=employee_getSueldo(pEmp2,&flagError);
-	if(hora1==hora2)
-	{
-		retorno=0;
-	}else if(hora1>hora2)
+	hora1=employee_getHorasTrabajadas(pEmp1,&flagError);
+	hora2=employee_getHorasTrabajadas(pEmp2,&flagError);
+	if(hora1>hora2)
 	{
 		retorno=1;
-	}else{
+	}else if(hora1<hora2)
+	{
 		retorno=-1;
 	}
 	return retorno;
@@ -294,7 +315,7 @@ int funcioCriterioHorasTrabajadas(void* el1,void* el2)
 
 int funcioCriterioSueldo(void* el1,void* el2)
 {
-	int retorno=-1;
+	int retorno=0;
 	Employee* pEmp1;
 	Employee* pEmp2;
 	int flagError;
@@ -304,13 +325,11 @@ int funcioCriterioSueldo(void* el1,void* el2)
 	pEmp2=(Employee*)el2;
 	sueldo1=employee_getSueldo(pEmp1,&flagError);
 	sueldo2=employee_getSueldo(pEmp2,&flagError);
-	if(sueldo1==sueldo2)
-	{
-		retorno=0;
-	}else if(sueldo1>sueldo2)
+	if(sueldo1>sueldo2)
 	{
 		retorno=1;
-	}else{
+	}else if(sueldo1<sueldo2)
+	{
 		retorno=-1;
 	}
 	return retorno;
@@ -318,7 +337,7 @@ int funcioCriterioSueldo(void* el1,void* el2)
 
 int funcioCriterioId(void* el1,void* el2)
 {
-	int retorno=-1;
+	int retorno=0;
 	Employee* pEmp1;
 	Employee* pEmp2;
 	int flagError;
@@ -328,13 +347,11 @@ int funcioCriterioId(void* el1,void* el2)
 	pEmp2=(Employee*)el2;
 	id1=employee_getId(pEmp1,&flagError);
 	id2=employee_getId(pEmp2,&flagError);
-	if(id1==id2)
-	{
-		retorno=0;
-	}else if(id1>id2)
+	if(id1>id2)
 	{
 		retorno=1;
-	}else{
+	}else if(id1<id2)
+	{
 		retorno=-1;
 	}
 	return retorno;
@@ -351,7 +368,7 @@ int funcioCriterioNombre(void* el1,void* el2)
 	pEmp2=(Employee*)el2;
 	nombre1=employee_getNombre(pEmp1,&flagError);
 	nombre2=employee_getNombre(pEmp2,&flagError);
-	return strcmp(nombre1,nombre2);
+	return stricmp(nombre1,nombre2);
 }
 /** \brief Ordenar empleados
  *
@@ -369,25 +386,25 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 		switch(opcion)
 		{
 		case 1:
-			if(utn_getEntero("Ingrese: \n1)Para Orden Ascendente\n2)Para Orden Descendente", "Error!!! Reingrese numero",&orden,3,2,0)==0)
+			if(utn_getEntero("Ingrese: \n0)Para Orden Descendente 1)Para Orden Ascendente", "Error!!! Reingrese numero",&orden,3,1,0)==0)
 			{
 				ll_sort(pArrayListEmployee,funcioCriterioNombre,orden);
 			}
 			break;
 		case 2:
-			if(utn_getEntero("Ingrese: \n1)Para Orden Ascendente\n2)Para Orden Descendente", "Error!!! Reingrese numero",&orden,3,2,0)==0)
+			if(utn_getEntero("Ingrese: \n0)Para Orden Descendente 1)Para Orden Ascendente", "Error!!! Reingrese numero",&orden,3,1,0)==0)
 			{
 				ll_sort(pArrayListEmployee,funcioCriterioHorasTrabajadas,orden);
 			}
 			break;
 		case 3:
-			if(utn_getEntero("Ingrese: \n1)Para Orden Ascendente\n2)Para Orden Descendente", "Error!!! Reingrese numero",&orden,3,2,0)==0)
+			if(utn_getEntero("Ingrese: \n0)Para Orden Descendente 1)Para Orden Ascendente", "Error!!! Reingrese numero",&orden,3,1,0)==0)
 			{
 				ll_sort(pArrayListEmployee,funcioCriterioSueldo,orden);
 			}
 			break;
 		case 4:
-			if(utn_getEntero("Ingrese: \n1)Para Orden Ascendente\n2)Para Orden Descendente", "Error!!! Reingrese numero",&orden,3,2,0)==0)
+			if(utn_getEntero("Ingrese: \n0)Para Orden Descendente 1)Para Orden Ascendente\n", "Error!!! Reingrese numero",&orden,3,1,0)==0)
 			{
 				ll_sort(pArrayListEmployee,funcioCriterioId,orden);
 			}

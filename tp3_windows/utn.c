@@ -271,6 +271,46 @@ int utn_getTexto(char* mensaje, char* mensajeError, char* pResultado,int reinten
 		}
 	return retorno;
 }
+
+/**
+ * \brief Solicita un nombre al usuario
+ * \param Valor  mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor  mensajeError, se guarda el mesaje de error que va a ser leido por el usuario
+ * \param Valor  pResultado, puntero al espacio de memoria donde se dejara el valor obtenido.
+ * \param Valor  reintentos, cantidad de oportunidades para ingresar el dato.
+ * \param Valor  limite, indica la cantidad de letras maxima del nombre
+ * \return Devuelve si hubo error o no
+ *
+ */
+
+int utn_getTextoSoloNumeros(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite)
+{
+	char bufferString[LIMITE_BUFFER_STRING];
+		int retorno = -1;
+
+		if(mensaje != NULL && mensajeError != NULL && pResultado != NULL && reintentos >= 0 && limite > 0)
+		{
+			do
+			{
+				printf("%s",mensaje);
+				if( myGets(bufferString,LIMITE_BUFFER_STRING) == 0 &&
+					strnlen(bufferString,sizeof(bufferString)-1)<= limite && esNumerica(bufferString)==0)  //verdadero
+				{
+					retorno = 0;
+					strncpy(pResultado,bufferString,limite);
+					break;
+				}
+				else
+				{
+					printf("%s",mensajeError);
+					reintentos--;
+				}
+			}while(reintentos >= 0);
+		}
+	return retorno;
+}
+
+
 /**
  * \brief 	Verifica una cadena recibida como parametro para determinar si es un nombre valido
  * \param char* cadena, Cadena a analizar

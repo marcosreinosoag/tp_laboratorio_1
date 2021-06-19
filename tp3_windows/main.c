@@ -31,9 +31,13 @@ int main()
         switch(option)
         {
         	case 1:
+        		controller_clearEmployee(listaEmpleados);
+        		ll_clear(listaEmpleados);
                 controller_loadFromText("data.csv",listaEmpleados,&idMaxEncontrado);
                 break;
         	case 2:
+        		controller_clearEmployee(listaEmpleados);
+        		ll_clear(listaEmpleados);
         		controller_loadFromBinary("databinario.csv",listaEmpleados,&idMaxEncontrado);
         		break;
         	case 3:
@@ -52,13 +56,15 @@ int main()
 				controller_sortEmployee(listaEmpleados);
 				break;
 			case 8:
-				controller_saveAsText("pruebatexto.csv",listaEmpleados);
+				controller_saveAsText("data.csv",listaEmpleados);
 				break;
 			case 9:
 				controller_saveAsBinary("databinario.csv",listaEmpleados);
 				break;
         }
     }while(option != 10);
+    controller_clearEmployee(listaEmpleados);
+    ll_clear(listaEmpleados);
     return 0;
 }
 

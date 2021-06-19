@@ -16,6 +16,7 @@ int utn_getEntero(char* mensaje, char* mensajeError, int* pResultado,int reinten
 int esUnNombreValido(char* cadena,int limite);
 int utn_getNombre(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
 int utn_getTexto(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
+int utn_getTextoSoloNumeros(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
 int esNumerica(char* cadena);
 int esUnCuitValido(char* cadena,int limite);
 int utn_getCuit(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
